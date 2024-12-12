@@ -6,8 +6,7 @@ const fs = require("fs").promises;
 // Create database connection
 const pool = new Pool({
   connectionString:
-    process.env.DATABASE_URL ||
-    "postgresql://gi:CCccostpsw@localhost:5432/books",
+    "postgresql://postgres:NEftnyyjALptQJZyxElGOPuzlIUckcdN@autorack.proxy.rlwy.net:26425/railway",
 });
 
 // This function handles the formatting of author names from "LastName, FirstName" to "FirstName LastName"
