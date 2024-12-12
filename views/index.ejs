@@ -8,10 +8,67 @@
         <%= title %>
     </title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" href="icons/bookicon.svg">
+
+    <%- include('partials/navbar') %>
 </head>
 
 <body>
+    <%- include('partials/utilityBar') %>
 
+        <div class="libraryContainer">
+            <% books.forEach((book)=>{%>
+                <div class="bookContainer" id="book-<%=book.id%>">
+                    <button type="submit" class="deleteButton" data-book-id="<%=book.id%>">❌</button>
+                    <div class="bookImageContainer">
+                        <img src="<%= book.image_link %>" alt="book cover" class="bookCoverImg">
+                    </div>
+                    <div>
+                        <a class="aBook" href="/book/<%=book.id%>">
+                            <%=book.title%>
+                        </a>
+                    </div>
+                    <div>
+                        <%= book.author%>
+                    </div>
+                    <div>
+                        Downloads: <%= book.download_count%>
+                    </div>
+                </div>
+                <%})%>
+        </div>
+
+        <script>
+            document.querySelectorAll('.deleteButton').forEach(button => {
+                button.addEventListener('click', () => {
+                    const bookId = event.target.dataset.bookId
+                    deleteBook(bookId)
+                })
+            })
+            async function deleteBook(bookId) {
+                const url = '/delete';
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: bookId })
+                };
+
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) {
+                        // Remove the book element from the DOM without reloading
+                        const bookElement = document.querySelector(`#book-${bookId}`);
+                        if (bookElement) {
+                            bookElement.remove();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        </script>
 </body>
 
 </html>

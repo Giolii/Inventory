@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= book.title %>
+    </title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/viewBook.css">
+    <link rel="icon" href="icons/bookicon.svg">
+    <link rel="icon" href="icons/bookicon.svg">
+
+    <%- include('partials/navbar') %>
+</head>
+
+<body>
+    <div class="viewBookContainer">
+        <div class="imageContainer">
+            <img class="bookImage" src="<%= book.image_link%>" alt="Book cover">
+        </div>
+        <div class="bookInfo visible" id="displayMode">
+            <h1>
+                <%=book.title%>
+            </h1>
+            <div class="form-group">
+                Author:
+                <b class="bookInfoText">
+                    <%=book.author%>
+                </b>
+
+            </div>
+            <div class="form-group">
+                Downloads:
+                <b class="bookInfoText">
+                    <%= book.download_count%>
+                </b>
+            </div>
+            <div class="form-group">
+                Category:
+                <div class="categories">
+                    <% book.categories.forEach((cat)=>{%>
+                        <b class="form-group">
+                            <%=cat%>
+                        </b>
+                        <%})%>
+                </div>
+            </div>
+
+            <button onclick="toggleEditMode()" class="editBook">Edit Book's info</button>
+        </div>
+
+        <!-- Edit Mode -->
+
+        <form class="formEditBook hidden" id="editMode" action="edit/<%= book.id%>" method="POST">
+            <h1>
+                <%=book.title%>
+            </h1>
+            <div class="form-group">
+                <label for="title">Title: </label>
+                <input type="text" name="title" id="title" value="<%= book.title %>" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" value="<%=book.author%>" required>
+            </div>
+            <div class="form-group">
+                <label for="download_count">Downloads: </label>
+                <input type="number" name="download_count" id="download_count" value="<%= book.download_count %>"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="image_link">Book Cover: </label>
+                <input type="text" name="image_link" id="image_link" value="<%= book.image_link %>" required>
+            </div>
+            <div class="form-group">
+                <label for="categories"> Category: </label>
+
+                <div class="categories">
+                    <% book.categories.forEach((cat)=>{%>
+                        <input type="text" name="categories" id="categories" value="<%= cat %>">
+                        <%})%>
+                            <input type="text" name="categories" id="categories">
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="button-group">
+                <button type="submit" class="save-btn">Save changes</button>
+                <button type="button" onclick="toggleEditMode()" class="cancel-btn">Cancel</button>
+            </div>
+        </form>
+
+</body>
+<script>
+    function toggleEditMode() {
+        const displayMode = document.getElementById('displayMode')
+        const editMode = document.getElementById('editMode')
+
+        if (displayMode.classList.contains('visible')) {
+            displayMode.classList.remove('visible')
+            displayMode.classList.add('hidden')
+            editMode.classList.remove('hidden')
+            editMode.classList.add('visible')
+        } else {
+            displayMode.classList.remove('hidden')
+            displayMode.classList.add('visible')
+            editMode.classList.remove('visible')
+            editMode.classList.add('hidden')
+        }
+    }
+</script>
+
+</html>

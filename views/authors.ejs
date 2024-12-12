@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="icon" href="icons/bookicon.svg">
+    <link rel="stylesheet" href="/css/index.css">
+    <%- include('partials/navbar') %>
+</head>
+
+<body>
+    <div class="libraryContainer">
+
+        <% authors.forEach((author)=>{%>
+            <div class="genresContainer">
+                <h3>
+                    <%=author.author%>
+                </h3>
+            </div>
+            <%})%>
+    </div>
+</body>
+
+</html>

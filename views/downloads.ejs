@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" href="icons/bookicon.svg">
+
+    <%- include('partials/navbar') %>
+</head>
+
+<body>
+    <div class="libraryContainer">
+
+        <% downloads.forEach((download)=>{%>
+            <div class="genresContainer">
+                <div>
+                    <div>
+                        <%=download.author%>
+                    </div>
+                    <div>
+                        Total downloads: <%=download.total_downloads%>
+                    </div>
+                    <div>
+                        Number of books: <%= download.number_of_books%>
+                    </div>
+                </div>
+            </div>
+            <%})%>
+    </div>
+</body>
+
+</html>

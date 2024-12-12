@@ -1,0 +1,51 @@
+<div class="utilityBar">
+    <button class="addBookButton" onclick="showFormAddBook()">➕ New Book</button>
+</div>
+
+<div id="newBookFormContainer" class="formContainer hidden">
+    <form action="/book/new" method="POST" class="newBookForm">
+        <h1>New Book:</h1>
+        <div class="form-group-add-book">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" required>
+        </div>
+        <div class="form-group-add-book">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+        </div>
+        <div class="form-group-add-book">
+            <label for="download_count">Downloads: </label>
+            <input type="number" name="download_count" id="download_count" required>
+        </div>
+        <div class="form-group-add-book">
+            <label for="image_link">Book Cover: </label>
+            <input type="text" name="image_link" id="image_link">
+        </div>
+        <div class="form-group-add-book">
+            <label for="categories">Category: </label>
+            <div class="formCategories">
+                <input type="text" name="categories[]" id="categories">
+                <input type="text" name="categories[]" id="categories">
+                <input type="text" name="categories[]" id="categories">
+            </div>
+        </div>
+        <div class="button-group-add-book">
+            <button type="submit" class="addBookButton formButton">Save changes</button>
+            <button type="button" onclick="showFormAddBook()" class="addBookButton formButton">Cancel</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    function showFormAddBook() {
+        const formContainer = document.getElementById('newBookFormContainer')
+        formContainer.classList.toggle('hidden')
+    }
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !document.getElementById('newBookFormContainer').classList.contains('hidden')) {
+            const overlay = document.getElementById('newBookFormContainer');
+            overlay.classList.add('hidden');
+        }
+    });
+</script>
